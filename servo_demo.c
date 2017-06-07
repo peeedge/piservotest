@@ -5,7 +5,7 @@
 #include <pigpio.h>
 
 /*
-# servo_demo.c
+# servo control code based on servo_demo.c
 # 2016-10-08
 # Public Domain
 
@@ -17,8 +17,8 @@ sudo ./servo_demo 23 24 25 # Send servo pulses to GPIO 23, 24, 25.
 
 #define NUM_GPIO 32
 
-#define MIN_WIDTH 1000
-#define MAX_WIDTH 2000
+#define MIN_WIDTH 775
+#define MAX_WIDTH 2175
 
 int run=1;
 
@@ -54,9 +54,9 @@ int main(int argc, char *argv[])
       }
    }
 
-   printf("Sending servos pulses to GPIO");
+   //printf("Sending servos pulses to GPIO");
 
-   for (g=0; g<NUM_GPIO; g++)
+   /*for (g=0; g<NUM_GPIO; g++)
    {
       if (used[g])
       {
@@ -65,7 +65,9 @@ int main(int argc, char *argv[])
          if ((step[g] % 2) == 0) step[g] = -step[g];
          width[g] = randint(MIN_WIDTH, MAX_WIDTH);
       }
-   }
+   }*/
+
+
 
    printf(", control C to stop.\n");
 
