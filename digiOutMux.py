@@ -22,14 +22,8 @@ for q in xrange(int(sys.argv[1])):
 
     s15 = (q%2)
 
-    mux16 = (u6.BitDirWrite(16, 1), u6.BitStateWrite(16, s15))
-    mux17 = (u6.BitDirWrite(17, 1), u6.BitStateWrite(17, s16))
-
-    cmdList.append(mux16)
-    cmdList.append(mux17)
-    d.getFeedback(cmdList)
-    
-
+    d.setDOState(16,s15)
+    d.setDOState(17,s16)
 
     d.setDOState(4,0)
 
