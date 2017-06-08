@@ -2,17 +2,35 @@ from __future__ import print_function
 import u6
 import time
 import os
+import pigpio
 import sys
 
 d = u6.U6()
 d.getCalibrationData()
 
+MIN_WIDTH=775
+MAX_WIDTH=2175
+
+SERVO_PIN=3
+
+width = 875
+
+pi = pigpio.pi()
+
+if not pi.connected:
+   exit()
+
 def convert(inByte2, inByte3):
     combined = inByte2*256 + inByte3
     return combined
 
+
+
+
 for q in xrange(int(sys.argv[1])):
     cmdList=[]
+
+
 
     state16 = (q%4)//2
     if state16 >= 1:
@@ -21,6 +39,14 @@ for q in xrange(int(sys.argv[1])):
         s16 = 0
 
     s15 = (q%2)
+
+    if time.clock() < .5:
+        pi.set_servo_pulsewidth(SERVO_PIN, MIN_WIDTH)
+    elif time.clock() > .5 and time.clock() < 1:
+        pi.set_servo_pulsewidth(SERVO_PIN, width)
+    else:
+        pi.set_servo_pulsewidth(SERVO_PIN, MIN_WIDTH)
+        
 
     d.setDOState(16,s15)
     d.setDOState(17,s16)
